@@ -1,0 +1,362 @@
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster - Perpustakaan Terlarang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0a0a0a 0%, #0c0c0c 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            font-family: 'Georgia', 'Times New Roman', 'Playfair Display', serif;
+        }
+
+        /* Kertas poster */
+        .poster {
+            max-width: 800px;
+            width: 100%;
+            background: #050505;
+            background-image: radial-gradient(circle at 25% 40%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+            border-radius: 4px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(212, 175, 55, 0.2), 0 0 0 6px #0f0f0f, 0 0 0 8px rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ornamen garis emas atas/bawah */
+        .gold-border-top {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #d4af37, #ffd966, #d4af37, transparent);
+            width: 100%;
+        }
+        .gold-border-bottom {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #d4af37, #ffd966, #d4af37, transparent);
+            width: 100%;
+        }
+
+        .content {
+            padding: 48px 36px 52px 36px;
+        }
+
+        /* header */
+        .top-labels {
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 10px;
+            font-weight: 300;
+            color: #b8912e;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 30px auto;
+            padding: 6px 20px;
+            font-family: monospace;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+        }
+
+        .top-labels span {
+            color: #e6c468;
+        }
+
+        /* judul utama */
+        .judul-utama {
+            text-align: center;
+            margin: 20px 0 15px 0;
+        }
+        .judul-utama h1 {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: #d4af37;
+            text-shadow: 0 0 8px rgba(212,175,55,0.6), 0 2px 5px black;
+            background: linear-gradient(135deg, #f9e0a0, #d4af37, #aa7c2c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
+        .subjudul {
+            font-size: 12px;
+            color: #9a8c6f;
+            letter-spacing: 2px;
+            word-spacing: 6px;
+            margin-top: -8px;
+        }
+
+        /* blok kutipan */
+        .quote-block {
+            margin: 40px 0 35px;
+            padding: 18px 24px;
+            border-left: 3px solid #d4af37;
+            background: rgba(212,175,55,0.03);
+            text-align: center;
+        }
+        .quote-text {
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #ddd2b6;
+            font-weight: 300;
+        }
+        .quote-author {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #b8912e;
+            letter-spacing: 1px;
+        }
+
+        /* garis dekorasi bintang */
+        .divider-star {
+            text-align: center;
+            color: #d4af37;
+            font-size: 18px;
+            letter-spacing: 8px;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        /* kotak harga premium */
+        .price-card {
+            background: rgba(0,0,0,0.8);
+            border: 1.5px solid #d4af37;
+            padding: 28px 20px;
+            margin: 20px 0 25px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,215,0,0.2);
+        }
+        .price-card h2 {
+            font-size: 26px;
+            letter-spacing: 3px;
+            color: #f1d689;
+            font-weight: 600;
+        }
+        .price-sub {
+            font-size: 12px;
+            color: #b89a4b;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(212,175,55,0.4);
+            display: inline-block;
+            padding-bottom: 6px;
+        }
+        .harga-lama {
+            font-size: 26px;
+            color: #777;
+            text-decoration: line-through;
+            margin-right: 15px;
+        }
+        .harga-baru {
+            font-size: 52px;
+            font-weight: bold;
+            color: #d4af37;
+            letter-spacing: 2px;
+        }
+        .badge-hemat {
+            background: #b68b2c;
+            color: #000;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+        .feature-list {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: #cbae76;
+            border-top: 1px solid rgba(212,175,55,0.3);
+            padding-top: 20px;
+        }
+        .feature-list div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .feature-list span {
+            font-size: 16px;
+        }
+
+        /* tombol akses */
+        .btn-gerbang {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #d4af37, #b38b2a);
+            margin: 30px 0 20px;
+            padding: 18px 10px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #0a0a0a;
+            text-decoration: none;
+            transition: all 0.2s;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+        .btn-gerbang:hover {
+            background: #e6c468;
+            letter-spacing: 5px;
+        }
+
+        /* footer */
+        .footer-note {
+            font-size: 9px;
+            text-align: center;
+            color: #6a5a3a;
+            margin-top: 20px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            padding-top: 18px;
+        }
+        .whatsapp-line {
+            font-size: 13px;
+            color: #c2a256;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+
+        /* aksen sudut emas */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #d4af37;
+            border-style: solid;
+            pointer-events: none;
+        }
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-top-width: 2px;
+            border-left-width: 2px;
+        }
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-top-width: 2px;
+            border-right-width: 2px;
+        }
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+        }
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-bottom-width: 2px;
+            border-right-width: 2px;
+        }
+
+        /* efek latar belakang samar */
+        .mandala-bg {
+            position: absolute;
+            bottom: -50px;
+            right: -70px;
+            width: 280px;
+            height: 280px;
+            opacity: 0.05;
+            background: radial-gradient(circle, #d4af37 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        @media (max-width: 550px) {
+            .content { padding: 28px 20px; }
+            .judul-utama h1 { font-size: 36px; letter-spacing: 3px; }
+            .harga-baru { font-size: 36px; }
+            .badge-hemat { font-size: 10px; margin-left: 6px; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="gold-border-top"></div>
+    <div class="content">
+        <!-- corner emas -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        <div class="mandala-bg"></div>
+
+        <div style="text-align: center;">
+            <div class="top-labels">
+                <span>⚜ HIPNOSIS</span> &nbsp;|&nbsp; <span>NEUROSAINS</span> &nbsp;|&nbsp; <span>DUNIA SPIRITUAL</span> &nbsp;|&nbsp; <span>KAJIAN MENDALAM</span> ⚜
+            </div>
+        </div>
+
+        <div class="judul-utama">
+            <h1>PERPUSTAKAAN<br>TERLARANG</h1>
+            <div class="subjudul">⎯⎯⎯ ✦ ⎯⎯⎯</div>
+        </div>
+
+        <div class="quote-block">
+            <div class="quote-text">“Di sini tersimpan ilmu yang tak diajarkan di bangku sekolah —<br>tentang kekuatan pikiran bawah sadar, neurosains kesadaran, dan dunia di balik yang kasat mata.”</div>
+            <div class="quote-author">— MOCH. MALVIE · PEMIKIR · GUNUNG GURUH · SUKABUMI —</div>
+        </div>
+
+        <div class="divider-star">✦ ✦ ✦</div>
+
+        <!-- paket master -->
+        <div class="price-card">
+            <h2>⚜ PAKET MASTER ⚜</h2>
+            <div class="price-sub">BUKA SEMUA BAB — AKSES PENUH 14 BAB PREMIUM</div>
+            <div>
+                <span class="harga-lama">Rp 700.000</span>
+                <span class="harga-baru">Rp 500.000</span>
+                <span class="badge-hemat">HEMAT 28%</span>
+            </div>
+            <div class="feature-list">
+                <div><span>🔐</span> Akun terikat — tidak bisa di share</div>
+                <div><span>💬</span> Konsultasi via WA dengan penulis</div>
+                <div><span>🔄</span> Update bab baru selamanya</div>
+            </div>
+        </div>
+
+        <!-- KODE AKSES + WA -->
+        <div style="text-align: center; margin: 15px 0 0px;">
+            <div class="whatsapp-line">
+                🔑 K UNTUK AKSES BAB PREMIUM &nbsp;&nbsp;|&nbsp;&nbsp; 📱 NO. WHATSAPP <strong style="color:#eac464;">08xxxxxxxxxx</strong>
+            </div>
+        </div>
+
+        <a href="#" class="btn-gerbang">◉ MASUK KE GERBANG BATIN ◉</a>
+
+        <div class="footer-note">
+            ✦ Transfer — konfirmasi WA — akan aktif dalam < 1 jam ✦<br>
+            <span style="font-size: 8px;">Kode akses terikat ke akun Anda — tidak bisa di share</span>
+        </div>
+    </div>
+    <div class="gold-border-bottom"></div>
+</div>
+</body>
+</html>
+```
